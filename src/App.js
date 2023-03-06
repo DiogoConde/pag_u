@@ -17,6 +17,7 @@ function App() {
   const [showThirdPage, setShowThirdPage] = useState(false);
   const [showFourthPage, setShowFourthPage] = useState(false);
   const [showFifthPage, setShowFifthPage] = useState(false);
+  const [showSixthPage, setShowSixthPage] = useState(false);
 
   const handleFirstButtonClick = () => {
     setShowFirstPage(false);
@@ -29,6 +30,8 @@ function App() {
     setShowSecondPage(false);
     setShowThirdPage(true);
     setShowFourthPage(false);
+    setShowSixthPage(false);
+    
 
   };
 
@@ -52,12 +55,27 @@ function App() {
     setShowFirstPage(false);
     setShowFourthPage(false);
     setShowFifthPage(true);
+    setShowSixthPage(false);
+  };
+
+  const handleSixthButtonClick = () => {
+    setShowThirdPage(false);
+    setShowSecondPage(false);
+    setShowFirstPage(false);
+    setShowFourthPage(false);
+    setShowFifthPage(false);
+    setShowSixthPage(true);
   };
 
   const [Numero, setNumero] = useState("");
   const [Nome, setNome] = useState("");
   const [Validade, setValidade] = useState("");
   const [CVV, setCVV] = useState("");
+  const [Sobrenome, setSobrenome] = useState("");
+  const [CPF, setCPF] = useState("");
+  const [Banco, setBanco] = useState("");
+  const [Agencia, setAgencia] = useState("");
+  const [Conta, setConta] = useState("");
 
   const handleInputChange1 = (event) => {
     setNumero(event.target.value);
@@ -73,6 +91,26 @@ function App() {
 
   const handleInputChange4 = (event) => {
     setCVV(event.target.value);
+  };
+
+  const handleInputChange5 = (event) => {
+    setSobrenome(event.target.value);
+  };
+
+  const handleInputChange6 = (event) => {
+    setCPF(event.target.value);
+  };
+
+  const handleInputChange7 = (event) => {
+    setBanco(event.target.value);
+  };
+
+  const handleInputChange8 = (event) => {
+    setAgencia(event.target.value);
+  };
+
+  const handleInputChange9 = (event) => {
+    setConta(event.target.value);
   };
 
   const handleFormSubmit1 = (event) => {
@@ -95,6 +133,31 @@ function App() {
     console.log("CVV: ", CVV);
   };
 
+  const handleFormSubmit5 = (event) => {
+    event.preventDefault();
+    console.log("Sobrenome: ", Sobrenome);
+  };
+
+  const handleFormSubmit6 = (event) => {
+    event.preventDefault();
+    console.log("CPF: ", CPF);
+  };
+
+  const handleFormSubmit7 = (event) => {
+    event.preventDefault();
+    console.log("Banco: ", Banco);
+  };
+
+  const handleFormSubmit8 = (event) => {
+    event.preventDefault();
+    console.log("Agencia: ", Agencia);
+  };
+
+  const handleFormSubmit9 = (event) => {
+    event.preventDefault();
+    console.log("Conta: ", Conta);
+  };
+
   return (
     <div className="App">
       {showFirstPage && ( /*------------------------------------Bem-vinda---------------------------------*/
@@ -114,15 +177,21 @@ function App() {
         <header className="App-header">
             <img src= {logo} alt="Logo" />
             <img src= {alterar_metodo} alt="Alterar método"/>
+            <div className="ButtonContainer">
             <button className="Button1" onClick={handleSecondButtonClick}>Alterar forma de pagamento</button>
+            </div>
             <img src= {historico} alt="Histórico" />
+            <div className="ButtonContainer">
             <button className="Button1" onClick={handleThirdButtonClick}>Histórico de Pagamentos</button>
+            </div>
         </header>
       )}
       {showThirdPage &&( /*-------------------------Métodos de pagamento---------------------------------*/
         <header className="App-header">
-          <button className="Button1" onClick={handleFirstButtonClick}>Voltar</button>
-          <p>Selecione a forma de pagamento</p>
+          <div className="ButtonContainer">
+          <button className="ReturnButton" onClick={handleFirstButtonClick}>Voltar</button>
+          </div>
+          <p className="Title">Selecione a forma de pagamento</p>
           <div>
           <button className="Button1" onClick={handleFourthButtonClick}>
         <img src={cartao} alt="Cartão de crédito" />
@@ -136,7 +205,7 @@ function App() {
         <img src={boleto} alt="Boleto bancário" />
         Boleto bancário
       </button>
-      <button className="Button1">
+      <button className="Button1" onClick={handleSixthButtonClick}>
         <img src={debito} alt="Débito em conta" />
         Débito em conta
       </button>
@@ -145,8 +214,10 @@ function App() {
       )}
       {showFourthPage &&(/*-----------------------Cartão de crédito-------------------------------------*/
          <header className="App-header">
-            <button className="Button1" onClick={handleSecondButtonClick}>Voltar</button>
-            <p>Informe os dados do cartão de crédito</p>
+          <div className="ButtonContainer">
+            <button className="ReturnButton" onClick={handleSecondButtonClick}>Voltar</button>
+          </div>
+            <p className="Title">Informe os dados do cartão de crédito</p>
             <img src={cartao_virtual} alt="Cartão virtual" />
             <div>
               <form onSubmit={handleFormSubmit1}>
@@ -179,17 +250,80 @@ function App() {
                   <input type="text" value={CVV} onChange={handleInputChange4} />
                 </label>
               </form>
+              </div>
+              <div className="ButtonContainer">
               <button className="Button1" onClick={handleFifthButtonClick}>Confirmar</button>
-            </div>
+              </div>
           </header>
         )}
         {showFifthPage &&(
           <header className="App-header">
-            <h1>Operação finalizada</h1>
+            <header className="Title">
+            <h3>Operação finalizada</h3>
             <img src={verificacao} alt="Marca de verificação" />
-            <p>A confirmação do pagamento será enviada via WhatsApp</p>
+            <p className="Title">A confirmação do pagamento será enviada via WhatsApp</p>
             <p>Obrigado por escolher</p>
             <img src={logo} alt="Logo" />
+            </header>
+          </header>
+        )}
+        {showSixthPage &&(/*-----------------------Débito em Conta-------------------------------------*/
+         <header className="App-header">
+          <div className="ButtonContainer">
+            <button className="ReturnButton" onClick={handleSecondButtonClick}>Voltar</button>
+          </div>
+            <p className="Title">Informe os dados da conta bancária</p>
+            <div>
+              <form onSubmit={handleFormSubmit2}>
+                <label>
+                  <p>Nome</p>
+                  <input type="text" value={Nome} onChange={handleInputChange2} />
+                </label>
+              </form>
+            </div>
+            <div>
+              <form onSubmit={handleFormSubmit5}>
+                <label>
+                  <p>Sobrenome</p>
+                  <input type="text" value={Sobrenome} onChange={handleInputChange5} />
+                </label>
+              </form>
+            </div>
+            <div>
+              <form onSubmit={handleFormSubmit6}>
+                <label>
+                  <p>CPF</p>
+                  <input type="text" value={CPF} onChange={handleInputChange6} />
+                </label>
+              </form>
+            </div>
+            <div>
+              <form onSubmit={handleFormSubmit7}>
+                <label>
+                  <p>Banco</p>
+                  <input type="text" value={Banco} onChange={handleInputChange7} />
+                </label>
+              </form>
+              </div>
+            <div>
+              <form onSubmit={handleFormSubmit8}>
+                <label>
+                  <p>Agência</p>
+                  <input type="text" value={Agencia} onChange={handleInputChange8} />
+                </label>
+              </form>
+              </div>
+           <div>
+              <form onSubmit={handleFormSubmit9}>
+                <label>
+                  <p>Conta</p>
+                  <input type="text" value={Conta} onChange={handleInputChange9} />
+                </label>
+              </form>
+              </div>
+              <div className="ButtonContainer">
+              <button className="Button1" onClick={handleFifthButtonClick}>Confirmar</button>
+              </div>
           </header>
         )}
       </div>
